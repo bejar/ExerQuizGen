@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage[pdftex,tight]{web}
+\usepackage[solutionsafter,proofing]{exerquiz}
+\usepackage[pdftex]{eforms}
+\usepackage[a4paper,margin=1.75cm]{geometry}
+
+\renewcommand\exlabel{Problem}
+\sqTurnOffAlerts
+
+\everyCheckBox{
+\symbolchoice{circle}
+\textColor{1 0 0 rg} % text color
+\F{\FPrint}
+}
+
+\everyRadioButton{
+\symbolchoice{check}
+\textColor{0 1 0 rg} % text color
+\F{\FPrint}
+}
