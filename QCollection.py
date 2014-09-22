@@ -126,12 +126,23 @@ class QCollection:
         while i < len(order) and nq < nquest:
             q = self.get_i_question(order[i])
             lq = q.generate_questions(nans)
-            nq += len(lq)
             for q in lq:
-                qz.add_question(q)
+                if nq < nquest:
+                    qz.add_question(q)
+                nq += 1
             i += 1
+
 
         return qz
 
+    def generate_collection(self):
+        """
+        Generates a quiz that contains all the questions in the collection
+        :return:
+        """
+        qz = Quiz()
+        for i in range(self.size()):
+            q = self.get_i_question(i)
+            qz.add_question(q.generate_all_questions())
 
-
+        return qz
