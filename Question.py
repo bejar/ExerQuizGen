@@ -128,9 +128,9 @@ class Question:
         """
 
         if nchoices == 1:
-            dfile.write('\\item %s:\n\n' % self.get_qtext())
+            dfile.write('\\item %s (one correct answer):\n\n' % self.get_qtext())
             if solutions:
-                sfile.write('\\item %s:\n\n' % self.get_qtext())
+                sfile.write('\\item %s (one correct answer):\n\n' % self.get_qtext())
         else:
             dfile.write('\\item %s (multiple answer):\n\n' % self.get_qtext())
             if solutions:

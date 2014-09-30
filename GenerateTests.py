@@ -36,12 +36,14 @@ cfpath = '/home/bejar/Documentos/Docencia/aaac/Preguntas'
 dnipath = '/home/bejar/Documentos/Docencia/aaac/C1415'
 
 cnf = QConfiguration()
-cnf.get_configuration(cfpath, 'testpreprocess.cfg')
+cnf.get_configuration(cfpath, 'testclustering.cfg')
 
 col = QCollection()
 col.load_qcollection(cnf.get_questions_path(), cnf.get_questions_collection())
 
 dnifile = open(dnipath + '/' + 'DNI1415' + '.txt', 'r')
+os.system(' rm -fr ' + cnf.get_output_path() + '/test/*')
+os.system(' rm -fr ' + cnf.get_output_path() + '/solution/*')
 
 for dni in dnifile:
     qz = col.generate_quiz(cnf.get_exam_num_questions(), cnf.get_exam_num_answers())
@@ -53,10 +55,10 @@ for dni in dnifile:
               '/solution/ ' + cnf.get_exam_file_name() + '-' + stripNl(dni) + '-sol.tex')
     os.system('pdflatex -output-directory '+ cnf.get_output_path() +
               '/solution/ ' + cnf.get_exam_file_name() + '-' + stripNl(dni) + '-sol.tex')
-    ext = ['log' ,'aux', 'out', 'qsl', 'sol', 'cut', 'djs']
-    for e in ext:
-        os.system(' rm -fr ' + cnf.get_output_path() + '/test/*.' + e)
-        os.system(' rm -fr ' + cnf.get_output_path() + '/solution/*.' + e)
+ext = ['log','aux', 'out', 'qsl', 'sol', 'cut', 'djs']
+for e in ext:
+    os.system(' rm -fr ' + cnf.get_output_path() + '/test/*.' + e)
+    os.system(' rm -fr ' + cnf.get_output_path() + '/solution/*.' + e)
 
 os.system('cd '+ cnf.get_output_path() + '/test/' +'; zip ' + cnf.get_exam_file_name() + '.zip *.pdf')
 os.system('cd '+ cnf.get_output_path() + '/solution/' +'; zip ' + cnf.get_exam_file_name() + '-sol.zip *.pdf')

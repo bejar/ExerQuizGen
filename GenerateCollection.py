@@ -35,7 +35,7 @@ def stripNl(val):
 cfpath = '/home/bejar/Documentos/Docencia/aaac/Preguntas'
 
 cnf = QConfiguration()
-cnf.get_configuration(cfpath, 'testpreprocess.cfg')
+cnf.get_configuration(cfpath, 'testvalidation.cfg')
 
 col = QCollection()
 col.load_qcollection(cnf.get_questions_path(), cnf.get_questions_collection())
