@@ -30,23 +30,23 @@ import os
 
 
 def stripNl(val):
-    return (string.lstrip(string.rstrip(val[:len(val)-1])))
+    return string.lstrip(string.rstrip(val[:len(val)-1]))
 
 cfpath = '/home/bejar/Documentos/Docencia/aaac/Preguntas'
-dnipath = '/home/bejar/Documentos/Docencia/aaac/C1415'
+dnipath = '/home/bejar/Documentos/Docencia/aaac/C1516'
 
 cnf = QConfiguration()
-cnf.get_configuration(cfpath, 'testclustering.cfg')
+cnf.get_configuration(cfpath, 'testarulesstruct.cfg')
 
 col = QCollection()
 col.load_qcollection(cnf.get_questions_path(), cnf.get_questions_collection())
 
-dnifile = open(dnipath + '/' + 'DNI1415' + '.txt', 'r')
+dnifile = open(dnipath + '/' + 'DNI1516' + '.txt', 'r')
 os.system(' rm -fr ' + cnf.get_output_path() + '/test/*')
 os.system(' rm -fr ' + cnf.get_output_path() + '/solution/*')
 
 for dni in dnifile:
-    qz = col.generate_quiz(cnf.get_exam_num_questions(), cnf.get_exam_num_answers())
+    qz = col.generate_quiz(cnf.get_exam_num_questions(), cnf.get_exam_num_answers(), seed=int(dni))
     d = Document(cnf, qz)
     d.save(cnf.get_exam_file_name()+'-'+stripNl(dni), cnf.get_exam_num_choices(),solutions=True)
     os.system('pdflatex -output-directory '+ cnf.get_output_path() +

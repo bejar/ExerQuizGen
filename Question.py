@@ -128,13 +128,13 @@ class Question:
         """
 
         if nchoices == 1:
-            dfile.write('\\item %s (one correct answer):\n\n' % self.get_qtext())
+            dfile.write('\\item %s (one correct answer):\n\n' % self.get_qtext().replace('#', '\\'))
             if solutions:
-                sfile.write('\\item %s (one correct answer):\n\n' % self.get_qtext())
+                sfile.write('\\item %s (one correct answer):\n\n' % self.get_qtext().replace('#', '\\'))
         else:
-            dfile.write('\\item %s (multiple answer):\n\n' % self.get_qtext())
+            dfile.write('\\item %s (multiple answer):\n\n' % self.get_qtext().replace('#', '\\'))
             if solutions:
-                sfile.write('\\item %s (multiple answer):\n\n' % self.get_qtext())
+                sfile.write('\\item %s (multiple answer):\n\n' % self.get_qtext().replace('#', '\\'))
 
         if nchoices == 1:
             dfile.write('\\begin{answers}{1}\n')
@@ -165,13 +165,13 @@ class Question:
             else:
                 qtn = qchoices['pos']
             if nchoices == 1:
-                dfile.write('\\Ans%d \\label{%s} %s\n' % (a, label+str(p), qtn))
+                dfile.write('\\Ans%d \\label{%s} %s\n' % (a, label+str(p), qtn.replace('#', '\\')))
                 if solutions:
-                    sfile.write('\\Ans%d \\label{%s} %s\n' % (a, label+str(p), qtn))
+                    sfile.write('\\Ans%d \\label{%s} %s\n' % (a, label+str(p), qtn.replace('#', '\\')))
             else:
-                dfile.write('\\Ans%d \\label{%s} %s\eAns\n' % (a, label+str(p), qtn))
+                dfile.write('\\Ans%d \\label{%s} %s\eAns\n' % (a, label+str(p), qtn.replace('#', '\\')))
                 if solutions:
-                    sfile.write('\\Ans%d \\label{%s} %s\eAns\n' % (a, label+str(p), qtn))
+                    sfile.write('\\Ans%d \\label{%s} %s\eAns\n' % (a, label+str(p), qtn.replace('#', '\\')))
 
 
         if nchoices == 1:
@@ -223,7 +223,7 @@ class Question:
         :return:
         """
 
-        dfile.write('\\item %s (positive answer):\n\n' % self.get_qtext())
+        dfile.write('\\item %s (positive answer):\n\n' % self.get_qtext().replace('#', '\\'))
         pnans = []
         for i in range(len(self._qchoices)):
             pnans.append(1)
@@ -235,7 +235,7 @@ class Question:
         for p,a in zip(order,pnans):
             qchoices = self.get_i_qchoice(p)
             qtn = qchoices['pos']
-            dfile.write('\\Ans%d \\label{%s} %s\eAns\n' % (a, label+str(p)+str(a), qtn))
+            dfile.write('\\Ans%d \\label{%s} %s\eAns\n' % (a, label+str(p)+str(a), qtn.replace('#', '\\')))
         dfile.write('\\eChoices\n')
         dfile.write('\\end{manswers}\n')
         dfile.write('\\begin{solution}\n\n')
@@ -253,7 +253,7 @@ class Question:
         dfile.write('\\end{solution}')
         dfile.write('\n\n')
 
-        dfile.write('\\item %s (negative answer):\n\n' % self.get_qtext())
+        dfile.write('\\item %s (negative answer):\n\n' % self.get_qtext().replace('#', '\\'))
         pnans = []
 
         for i in range(len(self._qchoices)):
@@ -266,7 +266,7 @@ class Question:
         for p,a in zip(order,pnans):
             qchoices = self.get_i_qchoice(p)
             qtn = qchoices['neg']
-            dfile.write('\\Ans%d \\label{%s} %s\eAns\n' % (a, label+str(p)+str(a), qtn))
+            dfile.write('\\Ans%d \\label{%s} %s\eAns\n' % (a, label+str(p)+str(a), qtn.replace('#', '\\')))
         dfile.write('\\eChoices\n')
         dfile.write('\\end{manswers}\n')
         dfile.write('\\begin{solution}\n\n')
@@ -276,7 +276,7 @@ class Question:
             qchoices = self.get_i_qchoice(p)
             qtn = qchoices['negsol']
             if a == 0:
-                dfile.write('The answer (\\ref{%s}) is not correct because %s.\n\n' % (label + str(p) + str(a), qtn))
+                dfile.write('The answer (\\ref{%s}) is not correct because %s.\n\n' % (label + str(p) + str(a), qtn.replace('#', '\\')))
 
 
         dfile.write('\\end{solution}')
