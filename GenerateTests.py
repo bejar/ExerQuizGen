@@ -42,6 +42,11 @@ col = QCollection()
 col.load_qcollection(cnf.get_questions_path(), cnf.get_questions_collection())
 
 dnifile = open(dnipath + '/' + 'DNI1617' + '.txt', 'r')
+if not os.path.exists(cnf.get_output_path()):
+    os.mkdir(cnf.get_output_path())
+    os.mkdir(cnf.get_output_path() + '/test')
+    os.mkdir(cnf.get_output_path() + '/solution')
+
 os.system(' rm -fr ' + cnf.get_output_path() + '/test/*')
 os.system(' rm -fr ' + cnf.get_output_path() + '/solution/*')
 
