@@ -24,7 +24,7 @@ class Document:
         self._config = config
         self._quiz = quiz
 
-    def save(self, name, choices, permans=False, permchoices=False, solutions=False):
+    def save(self, name, choices, permans=False, permchoices=False, solutions=False, stdname=None):
         """
         Saves the document
 
@@ -50,9 +50,9 @@ class Document:
             for line in ltxpreamble:
                 dsfile.write(line)
 
-        self._preamble(dfile)
+        self._preamble(dfile, stdname=stdname)
         if solutions:
-            self._preamble(dsfile)
+            self._preamble(dsfile, stdname=stdname)
 
         for i in range(self._quiz.size()):
             q = self._quiz.get_i_question(i)
@@ -88,17 +88,21 @@ class Document:
 
         pfile.close()
 
-    def _preamble(self, wfile):
+    def _preamble(self, wfile, stdname=None):
         wfile.write('\\begin{document}\n')
         wfile.write('\\noindent\n')
         wfile.write('%s \\hfill %s \\hfill %s \\\\\n' % (self._config._course, self._config._title, self._config._date))
         wfile.write('%s \\hfill %s \\\\\n\n' % (self._config._term, self._config._curricula))
         wfile.write('\\hrulefill\n\n')
         wfile.write('\\vspace*{1cm}\n\n')
-        wfile.write('\\noindent \\textbf{Name:} \\textField '+
-                    '[\\BC{0 0 1}\\BG{0.98 0.92 0.73}'+
-                    '\\textColor{1 0 0 rg}'+
-                    ']{myText}{3.5in}{12bp}\n')
+
+        if stdname is not None:
+             wfile.write('\\noindent \\textbf{Name:} '+ stdname +'\n')
+        else:
+            wfile.write('\\noindent \\textbf{Name:} \\textField '+
+                        '[\\BC{0 0 1}\\BG{0.98 0.92 0.73}'+
+                        '\\textColor{1 0 0 rg}'+
+                        ']{myText}{3.5in}{12bp}\n')
         wfile.write('\\bigskip\n')
         wfile.write('\\section*{Instructions}\n')
         instructions = self._config._instructions.split('#')
